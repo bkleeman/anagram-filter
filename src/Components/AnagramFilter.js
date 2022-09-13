@@ -1,33 +1,30 @@
 function AnagramFilter() {
-    let unfiltered = ['code', 'anagrams', 'smraaang', 'odce']
-    let filtered = []
 
-    for (let i = 0; i < unfiltered.length; i++) {
+    let map = new Map();
+    let values = ['code', 'anagrams', 'smraaang', 'odce']
+    
+    values.reverse()
 
-        unfiltered[i] = unfiltered[i].split('').sort().join('');
-
+    for (let string of values) {
+        let sorted = string.split('').sort().join()
+        map.set(sorted, string)
     }
 
-    unfiltered.sort()
+    let filteredValues = Array.from(map.values())
 
-    for (let i = 0; i < unfiltered.length; i++) {
-        if (unfiltered[i] === unfiltered[i + 1]) {
-            filtered.push(unfiltered[i])
-        }
+    function mapListItem(arr) {
+        return <ul>{arr.map((x => {
+            return <li key={x.toString()}>{x}</li>
+        }))}</ul>
     }
 
     return (
         <>
-            <h1>Tested Array:</h1>
-            <p>['code', 'anagrams', 'smraaang', 'odce']</p>
+            <h2>Tested Array:</h2>
+            {mapListItem(values.reverse())}
 
-            <h1>Filtered Anagram Array:</h1>
-
-            <ul>
-                {filtered.map((x) => {
-                    return <li>{x}</li>
-                })}
-            </ul>
+            <h2>Filtered Anagram Array:</h2>
+            {mapListItem(filteredValues)}
         </>
     )
 
